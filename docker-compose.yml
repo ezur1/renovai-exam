@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  nest-app:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: nest-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - renovai-mysql
+    environment:
+      DATABASE_HOST: renovai
+    volumes:
+      - ./server:/usr/src/app
+      - server_node_modules:/usr/src/app/node_modules
+
+  renovai-mysql:
+    image: mysql:5.7.42
+    container_name: renovai
+    environment:
+      MYSQL_ROOT_PASSWORD: renovai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  next-app:
+    build:
+      context: ./client 
+      dockerfile: Dockerfile
+    container_name: next-client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+      - client_node_modules:/usr/src/app/node_modules
+
+volumes:
+  mysql-data:
+  server_node_modules:
+  client_node_modules:

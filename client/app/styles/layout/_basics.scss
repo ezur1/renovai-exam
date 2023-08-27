@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$primary-color: white;
+$secondary-color: #61c0fa;
+
+$primary-background-color: #0d0d30;
+
+body {
+  color: $primary-color;
+  background-color: $primary-background-color;
+}
+
+.main-container {
+  width: calc(100% - 7.5rem);
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+}
